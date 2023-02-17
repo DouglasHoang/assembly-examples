@@ -1,0 +1,18 @@
+%include 'functions.asm'
+
+SECTION .text
+global _start
+
+_start:
+  pop ecx ; first value on the stack is the number of arguments
+
+nextArg:
+  cmp ecx, 0h   ; check to see if we have any arguments left
+  jz noMoreArgs ; if zero flag is set jump to no More args
+  pop eax       ; pop the next argument off the stack
+  call sprintLF ; call our print with linefeed function
+  dec ecx       ; decrease ecx number of arguments left by 1
+  jmp nextArg
+
+noMoreArgs:
+  call quit
